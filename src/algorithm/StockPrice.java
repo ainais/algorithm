@@ -17,9 +17,6 @@
 
 package algorithm;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 public class StockPrice {
@@ -28,9 +25,16 @@ public class StockPrice {
 		int[] ans = new int[prices.length];
 		
 		for(int i=0; i<prices.length; i++) {
+			while(!s.isEmpty() && prices[i] < prices[s.peek()]) {
+				ans[s.peek()] = i-s.peek();
+				s.pop();
+			}
 			s.push(i);
 		} // end of for iLoop
-		System.out.println(s);
+		while(!s.isEmpty()) {
+			ans[s.peek()]=prices.length-s.peek()-1;
+			s.pop();
+		}
 	} // end of checkTime
 	
 	public static void main(String[] args) {
